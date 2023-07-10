@@ -1,3 +1,5 @@
+import "dart:developer";
+
 import "package:alx_voyager/screens/authentication/signup.dart";
 import "package:alx_voyager/services/auth.dart";
 import "package:flutter/material.dart";
@@ -11,6 +13,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  String error = '';
   final AuthService _authService = AuthService();
 
   final _formKey = GlobalKey<FormState>();
@@ -18,6 +21,23 @@ class _SignInState extends State<SignIn> {
   final _passwordController = TextEditingController();
   bool _isEmailFocused = false;
   bool _isPasswordFocused = false;
+
+  void _loginUser() async {
+    if (_formKey.currentState!.validate()) {
+      // Perform login logic here
+      dynamic result = await _authService.signInWithEmail(
+          _emailController.text, _passwordController.text);
+
+      if (result == null) {
+        setState(() {
+          error = 'Error While Signing In';
+          log(error);
+        });
+      } else {}
+
+      // Navigate to the home screen
+    }
+  }
 
   @override
   void dispose() {
@@ -142,7 +162,9 @@ class _SignInState extends State<SignIn> {
                         ),
                         SizedBox(height: 16.0),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            _loginUser();
+                          },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: Text(
@@ -166,7 +188,6 @@ class _SignInState extends State<SignIn> {
                   SizedBox(height: 16.0),
                   Center(child: Text('Or')),
                   SizedBox(height: 16.0),
-                  
                   TextButton(
                     onPressed: () async {
                       // Perform anonymous sign-in logic here

@@ -1,4 +1,8 @@
+import 'package:alx_voyager/models/user.dart';
 import 'package:alx_voyager/screens/authentication/sign_in.dart';
+import 'package:alx_voyager/screens/session.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:alx_voyager/services/auth.dart';
 
@@ -11,6 +15,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  String error = '';
   final AuthService _authService = AuthService();
 
   final _formKey = GlobalKey<FormState>();
@@ -25,6 +30,28 @@ class _RegisterState extends State<Register> {
   bool _isEmailFocused = false;
   bool _isPasswordFocused = false;
   bool _isConfirmPasswordFocused = false;
+
+  void _registerUser() async {
+    if (_formKey.currentState!.validate() && _passwordsMatch) {
+      // Perform registration logic here
+      dynamic result = await _authService.registerWithEmail(
+          _emailController.text, _passwordController.text);
+
+      if (result == null) {
+        setState(() {
+          error = 'Error While Signing In';
+          print(error);
+        });
+      } else {}
+
+      /*await FirebaseFirestore.instance
+          .collection('voyagers')
+          .doc(FirebaseAuth.instance.currentUser?.uid.toString())
+          .set(({'displayName': _usernameController.text}));*/
+
+      // Navigate to the home screen
+    }
+  }
 
   @override
   void dispose() {
@@ -147,6 +174,11 @@ class _RegisterState extends State<Register> {
                               _isConfirmPasswordFocused = false;
                             });
                           },
+                          onChanged: (value) {
+                            setState(() {
+                              _emailController.text = value;
+                            });
+                          },
                         ),
                         SizedBox(height: 16.0),
                         TextFormField(
@@ -184,6 +216,11 @@ class _RegisterState extends State<Register> {
                               _isConfirmPasswordFocused = false;
                             });
                           },
+                          /*onChanged: (value) {
+                            setState(() {
+                              _passwordController.text = value;
+                            });
+                          },*/
                         ),
                         SizedBox(height: 16.0),
                         TextFormField(
@@ -235,7 +272,9 @@ class _RegisterState extends State<Register> {
                           ),
                         SizedBox(height: 16.0),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            _registerUser();
+                          },
                           child: Text('Become A Voyager'),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
