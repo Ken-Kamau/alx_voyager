@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "91542018746",
+    "project_id": "alx-voyager",
+    "storage_bucket": "alx-voyager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91542018746:android:00d249d9f6b53eda904083",
+        "android_client_info": {
+          "package_name": "com.ken.alx_voyager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91542018746-6scm5tlcv8r5ojutrpa6jok95raplf6p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ken.alx_voyager",
+            "certificate_hash": "b5713506ecb86d7763d1505073bf3061f817dea7"
+          }
+        },
+        {
+          "client_id": "91542018746-5akgd9trg4ug5vf25r9fdkeqi5pkepgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfBcOpFpvjYCnwVa_4nphx5kuzRE3TdZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91542018746-5akgd9trg4ug5vf25r9fdkeqi5pkepgk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
