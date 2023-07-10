@@ -13,8 +13,7 @@ class AuthService {
             email: user.email,
             creationTime: user.metadata.creationTime,
             lastSignInTime: user.metadata.lastSignInTime,
-            photoURL: user.photoURL
-          )
+            photoURL: user.photoURL)
         : null;
   }
 
@@ -30,9 +29,22 @@ class AuthService {
     }
   }
 
+  //Auth Change User Stream
+  Stream<Voyager?> get voyagerStream {
+    return _firebaseAuth.authStateChanges().map((user) => _voyagerUser(user!));
+  }
+
   //sign in with email and password
 
   //register with email and password
 
   //sign out
+  Future signOut() async {
+    try {
+      return await _firebaseAuth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }

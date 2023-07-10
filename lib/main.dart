@@ -1,6 +1,9 @@
+import 'package:alx_voyager/models/user.dart';
 import 'package:alx_voyager/screens/session.dart';
+import 'package:alx_voyager/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,8 +17,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Session(),
+    return StreamProvider<Voyager?>.value(
+      catchError: (context, error) => null,
+      initialData: null,
+      value: AuthService().voyagerStream,
+      child: MaterialApp(
+        home: Session(),
+      ),
     );
   }
 }
