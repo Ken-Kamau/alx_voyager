@@ -1,4 +1,5 @@
 import 'package:alx_voyager/screens/authentication/sign_in.dart';
+import 'package:alx_voyager/screens/authentication/signup.dart';
 import 'package:flutter/material.dart';
 
 class Authentication extends StatefulWidget {
@@ -9,10 +10,19 @@ class Authentication extends StatefulWidget {
 }
 
 class _AuthenticationState extends State<Authentication> {
+  bool showSignIn = true;
+  void toggleScreen() {
+    setState(() {
+      showSignIn = !showSignIn;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SignIn(),
-    );
+    if (showSignIn) {
+      return SignIn(toggleScreen: toggleScreen);
+    } else {
+      return Register(toggleScreen: toggleScreen);
+    }
   }
 }
