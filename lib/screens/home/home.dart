@@ -1,3 +1,4 @@
+import "package:alx_voyager/models/location.dart";
 import "package:alx_voyager/services/auth.dart";
 import "package:alx_voyager/services/database.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
@@ -11,8 +12,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot>.value(
-      value: DatabaseService.voyagers, 
+    return StreamProvider<List<Location>>.value(
+      value: DatabaseService.locations, 
       initialData: [],
       child: Scaffold(
         backgroundColor: Colors.brown[50],
