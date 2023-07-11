@@ -2,6 +2,7 @@ import "dart:developer";
 
 import "package:alx_voyager/screens/authentication/signup.dart";
 import "package:alx_voyager/services/auth.dart";
+import "package:alx_voyager/shared/loading.dart";
 import "package:flutter/material.dart";
 
 class SignIn extends StatefulWidget {
@@ -17,6 +18,9 @@ class _SignInState extends State<SignIn> {
   final AuthService _authService = AuthService();
 
   final _formKey = GlobalKey<FormState>();
+
+  bool loading = false;
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isEmailFocused = false;
@@ -24,6 +28,9 @@ class _SignInState extends State<SignIn> {
 
   void _loginUser() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
       // Perform login logic here
       dynamic result = await _authService.signInWithEmail(
           _emailController.text, _passwordController.text);
@@ -31,6 +38,7 @@ class _SignInState extends State<SignIn> {
       if (result == null) {
         setState(() {
           error = 'Error While Signing In';
+          loading = false;
           log(error);
         });
       } else {}
@@ -48,7 +56,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return loading ? Loading() : WillPopScope(
       onWillPop: () async {
         if (Navigator.of(context).canPop()) {
           // If there is a previous screen, navigate back

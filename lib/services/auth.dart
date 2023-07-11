@@ -1,4 +1,7 @@
+import "dart:math";
+
 import "package:alx_voyager/models/user.dart";
+import "package:alx_voyager/services/database.dart";
 import "package:firebase_auth/firebase_auth.dart";
 
 class AuthService {
@@ -40,6 +43,16 @@ class AuthService {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
+
+      if (user != null) {
+        user.providerData.forEach((element) {
+          print("Provider: " + element.providerId.toString());
+          print("UID: " + element.uid.toString());
+          print("Email: " + element.email.toString());
+          print("Name: " + element.displayName.toString());
+        });
+      }
+
       return _voyagerUser(user!);
     } catch (e) {
       print(e.toString());
@@ -48,11 +61,33 @@ class AuthService {
   }
 
   //register with email and password
-  Future registerWithEmail(String email, String password) async {
+  Future registerWithEmail(String name, String email, String password) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
+      await user!.updateDisplayName(name);
+
+      //Create Voyager doc using uid
+      await DatabaseService(uid: user!.uid).updateVoyagerData('');
+
+      Voyager voyager = Voyager(
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          creationTime: user.metadata.creationTime,
+          lastSignInTime: user.metadata.lastSignInTime,
+          photoURL: user.photoURL);
+
+          print("Voyager properties:");
+      print("  uid: ${voyager.uid}");
+      print("  displayName: ${voyager.displayName}");
+      print("  email: ${voyager.email}");
+      print("  creationTime: ${voyager.creationTime}");
+      print("  lastSignInTime: ${voyager.lastSignInTime}");
+      print("  photoURL: ${voyager.photoURL}");
+
+
       return _voyagerUser(user!);
     } catch (e) {
       print(e.toString());
@@ -70,3 +105,8 @@ class AuthService {
     }
   }
 }
+
+/*Future getUID() async {
+  dynamic getId = await FirebaseAuth.instance.currentUser!.uid;
+  return getId;
+}*/
