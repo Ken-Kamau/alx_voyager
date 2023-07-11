@@ -44,14 +44,14 @@ class AuthService {
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
 
-      if (user != null) {
+      /*if (user != null) {
         user.providerData.forEach((element) {
           print("Provider: " + element.providerId.toString());
           print("UID: " + element.uid.toString());
           print("Email: " + element.email.toString());
           print("Name: " + element.displayName.toString());
         });
-      }
+      }*/
 
       return _voyagerUser(user!);
     } catch (e) {
@@ -69,9 +69,9 @@ class AuthService {
       await user!.updateDisplayName(name);
 
       //Create Voyager doc using uid
-      await DatabaseService(uid: user!.uid).updateVoyagerData('');
+      await DatabaseService(uid: user!.uid).updateLocationData('', '', '', '', '', 0, false );
 
-      Voyager voyager = Voyager(
+      /*Voyager voyager = Voyager(
           uid: user.uid,
           displayName: user.displayName,
           email: user.email,
@@ -85,7 +85,7 @@ class AuthService {
       print("  email: ${voyager.email}");
       print("  creationTime: ${voyager.creationTime}");
       print("  lastSignInTime: ${voyager.lastSignInTime}");
-      print("  photoURL: ${voyager.photoURL}");
+      print("  photoURL: ${voyager.photoURL}");*/
 
 
       return _voyagerUser(user!);

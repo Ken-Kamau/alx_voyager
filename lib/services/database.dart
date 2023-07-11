@@ -5,9 +5,23 @@ class DatabaseService {
   DatabaseService({required this.uid});
   //collection reference
   final CollectionReference voyagerCollection =
-      FirebaseFirestore.instance.collection('voyagers');
+      FirebaseFirestore.instance.collection('locations');
 
-  Future updateVoyagerData(String displayName) async {
-    return await voyagerCollection.doc(uid).set({'displayName' : displayName});
+  Future updateLocationData(String locationName, String locationAddress, String city, String country, String photoURL, double rating, bool liked) async {
+    return await voyagerCollection
+    .doc(uid)
+    .set({
+      'locationName': locationName,
+      'locationAddress': locationAddress,
+      'city': city,
+      'country': country,
+      'photoURL': photoURL,
+      'rating': rating,
+      'liked' : liked,
+      });
+  }
+
+  Stream<QuerySnapshot> get voyagers {
+    return voyagerCollection.snapshots();
   }
 }
