@@ -6,7 +6,12 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        backgroundColor: Colors.white,
+        title: Text(
+          'My Profile',
+          style: TextStyle(color: Colors.black87),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -16,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
             CircleAvatar(
               radius: 50,
               backgroundImage: AssetImage(
-                'assets/loading.gif',
+                'assets/portrait.jpg',
               ),
             ),
             SizedBox(height: 16.0),

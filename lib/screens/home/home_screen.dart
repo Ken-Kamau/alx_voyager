@@ -1,7 +1,12 @@
 import 'package:alx_voyager/screens/home/home.dart';
+import 'package:alx_voyager/screens/home/location_list.dart';
 import 'package:alx_voyager/screens/home/profile.dart';
 import 'package:alx_voyager/screens/home/trip_planning.dart';
+import 'package:alx_voyager/services/auth.dart';
+import 'package:alx_voyager/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:alx_voyager/models/location.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -78,12 +83,21 @@ class HomeScreenWidget extends StatelessWidget {
 class WishlistScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Wishlist Screen'),
-      ),
-      body: Center(
-        child: Text('Wishlist Screen Content'),
+    return StreamProvider<List<Location>>.value(
+      value: DatabaseService(uid: getUID().toString()).locations,
+      initialData: [],
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            'My Wishlist',
+            style: TextStyle(color: Colors.black87),
+          ),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: LocationInfo()
+        ),
       ),
     );
   }
@@ -94,7 +108,12 @@ class PlanTripScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Plan Trip Screen'),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Trip Planning',
+          style: TextStyle(color: Colors.black87),
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Text('Plan Trip Screen Content'),
@@ -108,10 +127,15 @@ class MyTripsScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Trips Screen'),
+        backgroundColor: Colors.white,
+        title: Text(
+          'My Trips',
+          style: TextStyle(color: Colors.black87),
+        ),
+        centerTitle: true,
       ),
       body: Center(
-        child: Text('My Trips Screen Content'),
+        child: Text('You have not been on any trips yet!'),
       ),
     );
   }
@@ -122,7 +146,12 @@ class ProfileScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Screen'),
+        backgroundColor: Colors.white,
+        title: Text(
+          'My Profile',
+          style: TextStyle(color: Colors.black87),
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Text('Profile Screen Content'),

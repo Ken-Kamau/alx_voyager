@@ -22,13 +22,13 @@ class LocationTile extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: ListTile(
           leading: FadeInImage.assetNetwork(
-            placeholder: 'assets/loading.gif',
+            placeholder: 'assets/placeholder.gif',
             // Replace with your network image URL
             image: location.photoURL,
             fit: BoxFit.cover,
           ),
           title: Text(location.locationName),
-          subtitle: Text('Takes ${location.rating.toInt()} sugar(s).'),
+          subtitle: Text('${location.city}, ${location.country}.'),
         ),
       ),
     );
