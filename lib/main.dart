@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: AuthService().voyagerStream,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Session(),
       ),
     );

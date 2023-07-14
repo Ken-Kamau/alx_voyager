@@ -4,7 +4,7 @@ class Location {
   final String city;
   final String country;
   final String photoURL;
-  final double rating;
+  final int rating;
   final bool liked;
 
   Location({

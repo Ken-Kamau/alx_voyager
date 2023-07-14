@@ -4,6 +4,7 @@ import 'package:alx_voyager/models/location.dart';
 class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
+  DatabaseService.withoutUID() : uid = '';
   //collection reference
   final CollectionReference locationCollection =
       FirebaseFirestore.instance.collection('locations');
@@ -35,14 +36,13 @@ class DatabaseService {
         city: doc.get('city') ?? '',
         country: doc.get('country') ?? '',
         photoURL: doc.get('photoURL') ?? '',
-        rating: doc.get('rating') ?? '',
-        liked: doc.get('liked') ?? '',
+        rating: doc.get('rating') ?? 0.0,
+        liked: doc.get('liked') ?? false,
       );
     }).toList();
   }
 
   Stream<List<Location>> get locations {
-    return locationCollection.snapshots()
-    .map(_locationListFromSnapshot);
+    return locationCollection.snapshots().map(_locationListFromSnapshot);
   }
 }

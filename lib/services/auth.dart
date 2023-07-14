@@ -106,7 +106,7 @@ class AuthService {
   }
 }
 
-/*Future getUID() async {
+Future getUID() async {
   dynamic getId = await FirebaseAuth.instance.currentUser!.uid;
   return getId;
-}*/
+}

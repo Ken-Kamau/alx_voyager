@@ -1,9 +1,10 @@
 import "dart:developer";
-
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:alx_voyager/screens/authentication/signup.dart";
 import "package:alx_voyager/services/auth.dart";
 import "package:alx_voyager/shared/loading.dart";
 import "package:flutter/material.dart";
+import 'package:alx_voyager/models/user.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleScreen;
@@ -41,7 +42,25 @@ class _SignInState extends State<SignIn> {
           loading = false;
           log(error);
         });
-      } else {}
+      } else {
+        User user = await FirebaseAuth.instance.currentUser!;
+        Voyager voyager = Voyager(
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            creationTime: user.metadata.creationTime,
+            lastSignInTime: user.metadata.lastSignInTime,
+            photoURL: user.photoURL);
+
+        print("Voyager properties:");
+        print("  uid: ${voyager.uid}");
+        print("  displayName: ${voyager.displayName}");
+        print("  email: ${voyager.email}");
+        print("  creationTime: ${voyager.creationTime}");
+        print("  lastSignInTime: ${voyager.lastSignInTime}");
+        print("  photoURL: ${voyager.photoURL}");
+      
+      }
 
       // Navigate to the home screen
     }
