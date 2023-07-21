@@ -3,7 +3,7 @@ import 'package:google_maps_webservice/places.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: DestinationsScreen(apiKey: 'AIzaSyBECKhNWD8tFE17X8Fx1MyBPk8kj54-G6Y'),
+    home: DestinationsScreen(apiKey: ''),
   ));
 }
 
